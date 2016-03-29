@@ -4,8 +4,8 @@ pkgname=nginx-naxsi
 _naxsirelease=0.54
 provides=('nginx')
 conflicts=('nginx')
-pkgver=1.9.10
-pkgrel=2
+pkgver=1.9.13
+pkgrel=1
 pkgdesc='Lightweight HTTP server and IMAP/POP3 proxy server, mainline release'
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url='http://nginx.org'
@@ -26,7 +26,7 @@ source=($url/download/nginx-$pkgver.tar.gz
         https://github.com/nbs-system/naxsi/archive/$_naxsirelease.tar.gz
         service
         logrotate)
-md5sums=('64cc970988356a5e0fc4fcd1ab84fe57'
+md5sums=('e7502dc170277597ca73eb53c359c771'
          '1bc31058991268e4cfdb44e9b6d8b3b3'
          'ce9a06bcaf66ec4a3c4eb59b636e0dfd'
          '3441ce77cdd1aab6f0ab7e212698a8a7')
