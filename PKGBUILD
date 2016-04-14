@@ -26,7 +26,7 @@ source=($url/download/nginx-$pkgver.tar.gz
         https://github.com/nbs-system/naxsi/archive/$_naxsirelease.tar.gz
         service
         logrotate)
-md5sums=('e7502dc170277597ca73eb53c359c771'
+md5sums=('a25818039f34b5d54b017d44c76321c4'
          '1bc31058991268e4cfdb44e9b6d8b3b3'
          'ce9a06bcaf66ec4a3c4eb59b636e0dfd'
          '3441ce77cdd1aab6f0ab7e212698a8a7')
