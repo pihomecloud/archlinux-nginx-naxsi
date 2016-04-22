@@ -1,12 +1,10 @@
-# Based on community/nginx
+# Based on community/nginx-mainline
 
 pkgname=nginx-naxsi
 _naxsirelease=0.54
-provides=('nginx')
-conflicts=('nginx')
 pkgver=1.9.15
-pkgrel=1
-pkgdesc='Lightweight HTTP server and IMAP/POP3 proxy server, mainline release'
+pkgrel=2
+pkgdesc='Lightweight HTTP server, mainline release, naxsi embedded and lot of unused flags disabled'
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url='http://nginx.org'
 license=('custom')
@@ -22,6 +20,8 @@ backup=('etc/nginx/fastcgi.conf'
         'etc/nginx/win-utf'
         'etc/logrotate.d/nginx')
 install=nginx.install
+provides=('nginx')
+conflicts=('nginx')
 source=($url/download/nginx-$pkgver.tar.gz
         https://github.com/nbs-system/naxsi/archive/$_naxsirelease.tar.gz
         service
@@ -30,6 +30,25 @@ md5sums=('13cd38e9da3789035750dd45882c4a26'
          '1bc31058991268e4cfdb44e9b6d8b3b3'
          'ce9a06bcaf66ec4a3c4eb59b636e0dfd'
          '3441ce77cdd1aab6f0ab7e212698a8a7')
+
+_common_flags=(
+  --with-ipv6
+  --with-pcre-jit
+  --with-file-aio
+  --with-http_gunzip_module
+  --with-http_gzip_static_module
+  --with-http_ssl_module
+  --with-http_stub_status_module
+)
+
+_disable_flags=(
+  --without-http_scgi_module
+  --without-http_ssi_module
+  --without-http_uwsgi_module
+  --without-mail_pop3_module
+  --without-mail_smtp_module
+  --without-mail_imap_module
+)
 
 build() {
   cd $provides-$pkgver
@@ -43,23 +62,13 @@ build() {
     --user=http \
     --group=http \
     --http-log-path=/var/log/nginx/access.log \
-    --error-log-path=/var/log/nginx/error.log \
+    --error-log-path=stderr \
     --http-client-body-temp-path=/var/lib/nginx/client-body \
     --http-proxy-temp-path=/var/lib/nginx/proxy \
     --http-fastcgi-temp-path=/var/lib/nginx/fastcgi \
-    --without-http_scgi_module \
-    --without-http_uwsgi_module \
-    --without-mail_pop3_module \
-    --without-mail_smtp_module \
-    --without-mail_imap_module \
-    --with-ipv6 \
-    --with-pcre-jit \
-    --with-http_dav_module \
-    --with-http_gunzip_module \
-    --with-http_gzip_static_module \
-    --with-http_ssl_module \
-    --with-http_stub_status_module \
-    --without-http_ssi_module
+    ${_common_flags[@]} \
+    ${_disable_flags[@]}
+
   make
 }
 
@@ -86,12 +95,17 @@ package() {
   install -Dm644 ../logrotate "$pkgdir"/etc/logrotate.d/nginx
   install -Dm644 ../service "$pkgdir"/usr/lib/systemd/system/nginx.service
   install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$provides/LICENSE
-  for i in ftdetect indent syntax; do
-    install -Dm644 contrib/vim/${i}/nginx.vim "${pkgdir}/usr/share/vim/vimfiles/${i}/nginx.vim"
-  done
-
 
   rmdir "$pkgdir"/run
+
+  install -d "$pkgdir"/usr/share/man/man8/
+  gzip -9c man/nginx.8 > "$pkgdir"/usr/share/man/man8/nginx.8.gz
+
+  for i in ftdetect indent syntax; do
+    install -Dm644 contrib/vim/${i}/nginx.vim \
+      "${pkgdir}/usr/share/vim/vimfiles/${i}/nginx.vim"
+  done
+
 }
 
 # vim:set ts=2 sw=2 et:
