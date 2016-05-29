@@ -3,12 +3,13 @@
 pkgname=nginx-naxsi
 _naxsirelease=0.54
 pkgver=1.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Lightweight HTTP server, mainline release, naxsi embedded and lot of unused flags disabled'
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url='http://nginx.org'
 license=('custom')
 depends=('pcre' 'zlib' 'openssl')
+makedepends=('hardening-wrapper')
 backup=('etc/nginx/fastcgi.conf'
         'etc/nginx/fastcgi_params'
         'etc/nginx/koi-win'
