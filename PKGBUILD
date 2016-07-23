@@ -9,7 +9,6 @@ arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url='http://nginx.org'
 license=('custom')
 depends=('pcre' 'zlib' 'openssl')
-makedepends=('hardening-wrapper')
 backup=('etc/nginx/fastcgi.conf'
         'etc/nginx/fastcgi_params'
         'etc/nginx/koi-win'
