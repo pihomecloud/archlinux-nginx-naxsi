@@ -1,8 +1,8 @@
 # Based on community/nginx-mainline
 
 pkgname=nginx-naxsi
-_naxsirelease=0.54
-pkgver=1.11.3
+_naxsirelease=0.55.1
+pkgver=1.11.4
 pkgrel=1
 pkgdesc='Lightweight HTTP server, mainline release, naxsi embedded and lot of unused flags disabled'
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
@@ -26,8 +26,8 @@ source=($url/download/nginx-$pkgver.tar.gz
         https://github.com/nbs-system/naxsi/archive/$_naxsirelease.tar.gz
         service
         logrotate)
-md5sums=('18275c1daa39c5fac12e56c34907d45b'
-         '1bc31058991268e4cfdb44e9b6d8b3b3'
+md5sums=('92666d60410f429ddbdb10060369a480'
+         'b894ea5327a3d102a56aeddb79d2e047'
          'ce9a06bcaf66ec4a3c4eb59b636e0dfd'
          '3441ce77cdd1aab6f0ab7e212698a8a7')
 
@@ -56,7 +56,7 @@ build() {
     --prefix=/etc/nginx \
     --conf-path=/etc/nginx/nginx.conf \
     --sbin-path=/usr/bin/nginx \
-    --add-module=../naxsi-0.54/naxsi_src/ \
+    --add-module=../naxsi-${_naxsirelease}/naxsi_src/ \
     --pid-path=/run/nginx.pid \
     --lock-path=/run/lock/nginx.lock \
     --user=http \
