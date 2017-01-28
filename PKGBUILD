@@ -2,7 +2,7 @@
 
 pkgname=nginx-naxsi
 _naxsirelease=0.55.1
-pkgver=1.11.8
+pkgver=1.11.9
 pkgrel=1
 pkgdesc='Lightweight HTTP server, mainline release, naxsi embedded and lot of unused flags disabled'
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
@@ -26,7 +26,7 @@ source=($url/download/nginx-$pkgver.tar.gz
         https://github.com/nbs-system/naxsi/archive/$_naxsirelease.tar.gz
         service
         logrotate)
-md5sums=('8f68f49b6db510e567bba9e0c271a3ac'
+md5sums=('7aeca793819c2b8df134c0b1cfe98361'
          'b894ea5327a3d102a56aeddb79d2e047'
          'ce9a06bcaf66ec4a3c4eb59b636e0dfd'
          '3441ce77cdd1aab6f0ab7e212698a8a7')
