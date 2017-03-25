@@ -3,7 +3,7 @@
 pkgname=nginx-naxsi
 _naxsirelease=0.55.3
 pkgver=1.11.12
-pkgrel=3
+pkgrel=4
 pkgdesc='Lightweight HTTP server, mainline release, naxsi embedded and lot of unused flags disabled'
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url='http://nginx.org'
@@ -32,7 +32,6 @@ md5sums=('c5ffbd7107c34bff4ac9446b59468e6a'
          '3441ce77cdd1aab6f0ab7e212698a8a7')
 
 _common_flags=(
-  --with-ipv6
   --with-pcre-jit
   --with-file-aio
   --with-http_gunzip_module
@@ -42,12 +41,18 @@ _common_flags=(
 )
 
 _disable_flags=(
-  --without-http_scgi_module
   --without-http_ssi_module
+  --without-http_autoindex_module
+  --without-http_geo_module
+  --without-http_map_module
+  --without-http_split_clients_module
+  --without-http_scgi_module
   --without-http_uwsgi_module
+  --without-http_memcached_module
+  --without-http-cache
   --without-mail_pop3_module
-  --without-mail_smtp_module
   --without-mail_imap_module
+  --without-mail_smtp_module
 )
 
 build() {
