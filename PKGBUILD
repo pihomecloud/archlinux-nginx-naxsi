@@ -2,7 +2,7 @@
 
 pkgname=nginx-naxsi
 _naxsirelease=0.55.3
-pkgver=1.13.10
+pkgver=1.13.11
 pkgrel=1
 pkgdesc='Lightweight HTTP server, mainline release, naxsi embedded and lot of unused flags disabled'
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
