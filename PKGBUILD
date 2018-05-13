@@ -3,10 +3,10 @@
 pkgname=nginx-naxsi
 _naxsirelease=0.55.3
 pkgver=1.13.12
-pkgrel=1
+pkgrel=2
 pkgdesc='Lightweight HTTP server, mainline release, naxsi embedded and lot of unused flags disabled'
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
-url='http://nginx.org'
+url='https://nginx.org'
 license=('custom')
 depends=('pcre' 'zlib' 'openssl')
 backup=('etc/nginx/fastcgi.conf'
@@ -22,22 +22,31 @@ backup=('etc/nginx/fastcgi.conf'
 install=nginx.install
 provides=('nginx')
 conflicts=('nginx')
-source=($url/download/nginx-$pkgver.tar.gz
+source=($url/download/nginx-$pkgver.tar.gz{,.asc}
         https://github.com/nbs-system/naxsi/archive/$_naxsirelease.tar.gz
         service
         logrotate)
+validpgpkeys=('B0F4253373F8F6F510D42178520A9993A1C052F8') # Maxim Dounin <mdounin@mdounin.ru>
 md5sums=('20871b2cf21a16dbfb83078b4dc2dde0'
+         'SKIP'
          'b50f6d41aa017cbfcab577ed70d7b3b7'
          'ce9a06bcaf66ec4a3c4eb59b636e0dfd'
          '3441ce77cdd1aab6f0ab7e212698a8a7')
+sha512sums=('c61668d4999d43ccd5ed8e99bd2f6992190503bb3c4103a22871e346feb8cbd049b04416ca7eb982c122a9a29bb21c6bb9f934411dd80bc02d946105f7917873'
+            'SKIP'
+            '9e8f41a5cd1342cc9b8aa334a603842d14a256aab1f4a21205bb1278aecbb0c49e39c889d8113a5b41aad2efeaa2ed9f11cba6929173f50add91f54c4c59c8a0'
+            '7dffe1067ea52ed69bc6dd95c4286af3b6dd13821df64d4a209b39bc5b4b46bc40566d4783695a3527ec640436e2b5e84edd41d547c3bc3ac2ef5e043bd88d66'
+            '57298ccaac36e2fd96cbdffeef990dcb70b80f85634e6498b878c8caeb764568a23619797a6c1548f8296e2fb0fd59c9b2f752a7844cfa200e4534fd9fbcf735')
 
 _common_flags=(
-  --with-pcre-jit
   --with-file-aio
   --with-http_gunzip_module
   --with-http_gzip_static_module
   --with-http_ssl_module
   --with-http_stub_status_module
+  --with-http_v2_module
+  --with-pcre-jit
+  --with-threads
 )
 
 _disable_flags=(
@@ -71,6 +80,8 @@ build() {
     --http-client-body-temp-path=/var/lib/nginx/client-body \
     --http-proxy-temp-path=/var/lib/nginx/proxy \
     --http-fastcgi-temp-path=/var/lib/nginx/fastcgi \
+    --with-cc-opt="$CFLAGS $CPPFLAGS" \
+    --with-ld-opt="$LDFLAGS" \
     ${_common_flags[@]} \
     ${_disable_flags[@]}
 
@@ -110,7 +121,6 @@ package() {
     install -Dm644 contrib/vim/${i}/nginx.vim \
       "${pkgdir}/usr/share/vim/vimfiles/${i}/nginx.vim"
   done
-
 }
 
 # vim:set ts=2 sw=2 et:
