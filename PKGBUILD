@@ -2,8 +2,8 @@
 
 pkgname=nginx-naxsi
 _naxsirelease=0.55.3
-pkgver=1.13.12
-pkgrel=2
+pkgver=1.15.0
+pkgrel=1
 pkgdesc='Lightweight HTTP server, mainline release, naxsi embedded and lot of unused flags disabled'
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url='https://nginx.org'
@@ -27,12 +27,12 @@ source=($url/download/nginx-$pkgver.tar.gz{,.asc}
         service
         logrotate)
 validpgpkeys=('B0F4253373F8F6F510D42178520A9993A1C052F8') # Maxim Dounin <mdounin@mdounin.ru>
-md5sums=('20871b2cf21a16dbfb83078b4dc2dde0'
+md5sums=('4a6ed39e9becf8705187b5bacb1263c8'
          'SKIP'
          'b50f6d41aa017cbfcab577ed70d7b3b7'
          'ce9a06bcaf66ec4a3c4eb59b636e0dfd'
          '3441ce77cdd1aab6f0ab7e212698a8a7')
-sha512sums=('c61668d4999d43ccd5ed8e99bd2f6992190503bb3c4103a22871e346feb8cbd049b04416ca7eb982c122a9a29bb21c6bb9f934411dd80bc02d946105f7917873'
+sha512sums=('7dbdf437d8d546059a8a03aa9c8d2be98dba7306e2daa49611c16f1e56413a25d4c622da13a815e8075a10f4a0cd744167deaeb971c0a69189940a7a05fa32df'
             'SKIP'
             '9e8f41a5cd1342cc9b8aa334a603842d14a256aab1f4a21205bb1278aecbb0c49e39c889d8113a5b41aad2efeaa2ed9f11cba6929173f50add91f54c4c59c8a0'
             '7dffe1067ea52ed69bc6dd95c4286af3b6dd13821df64d4a209b39bc5b4b46bc40566d4783695a3527ec640436e2b5e84edd41d547c3bc3ac2ef5e043bd88d66'
@@ -53,7 +53,6 @@ _disable_flags=(
   --without-http_ssi_module
   --without-http_autoindex_module
   --without-http_geo_module
-  --without-http_map_module
   --without-http_split_clients_module
   --without-http_scgi_module
   --without-http_uwsgi_module
