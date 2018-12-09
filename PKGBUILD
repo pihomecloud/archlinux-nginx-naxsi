@@ -1,8 +1,8 @@
 # Based on community/nginx-mainline
 
 pkgname=nginx-naxsi
-_naxsirelease=0.55.3
-pkgver=1.15.0
+_naxsirelease=0.56
+pkgver=1.15.7
 pkgrel=1
 pkgdesc='Lightweight HTTP server, mainline release, naxsi embedded and lot of unused flags disabled'
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
