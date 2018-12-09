@@ -1,8 +1,8 @@
 pkgbase = nginx-naxsi
 	pkgdesc = Lightweight HTTP server, mainline release, naxsi embedded and lot of unused flags disabled
-	pkgver = 1.13.12
+	pkgver = 1.15.7
 	pkgrel = 1
-	url = http://nginx.org
+	url = https://nginx.org
 	install = nginx.install
 	arch = i686
 	arch = x86_64
@@ -24,14 +24,22 @@ pkgbase = nginx-naxsi
 	backup = etc/nginx/uwsgi_params
 	backup = etc/nginx/win-utf
 	backup = etc/logrotate.d/nginx
-	source = http://nginx.org/download/nginx-1.13.12.tar.gz
-	source = https://github.com/nbs-system/naxsi/archive/0.55.3.tar.gz
+	source = https://nginx.org/download/nginx-1.15.7.tar.gz
+	source = https://nginx.org/download/nginx-1.15.7.tar.gz.asc
+	source = https://github.com/nbs-system/naxsi/archive/0.56.tar.gz
 	source = service
 	source = logrotate
-	md5sums = 20871b2cf21a16dbfb83078b4dc2dde0
+	validpgpkeys = B0F4253373F8F6F510D42178520A9993A1C052F8
+	md5sums = 4a6ed39e9becf8705187b5bacb1263c8
+	md5sums = SKIP
 	md5sums = b50f6d41aa017cbfcab577ed70d7b3b7
 	md5sums = ce9a06bcaf66ec4a3c4eb59b636e0dfd
 	md5sums = 3441ce77cdd1aab6f0ab7e212698a8a7
+	sha512sums = 7dbdf437d8d546059a8a03aa9c8d2be98dba7306e2daa49611c16f1e56413a25d4c622da13a815e8075a10f4a0cd744167deaeb971c0a69189940a7a05fa32df
+	sha512sums = SKIP
+	sha512sums = 9e8f41a5cd1342cc9b8aa334a603842d14a256aab1f4a21205bb1278aecbb0c49e39c889d8113a5b41aad2efeaa2ed9f11cba6929173f50add91f54c4c59c8a0
+	sha512sums = 7dffe1067ea52ed69bc6dd95c4286af3b6dd13821df64d4a209b39bc5b4b46bc40566d4783695a3527ec640436e2b5e84edd41d547c3bc3ac2ef5e043bd88d66
+	sha512sums = 57298ccaac36e2fd96cbdffeef990dcb70b80f85634e6498b878c8caeb764568a23619797a6c1548f8296e2fb0fd59c9b2f752a7844cfa200e4534fd9fbcf735
 
 pkgname = nginx-naxsi
 
