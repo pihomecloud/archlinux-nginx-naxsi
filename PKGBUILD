@@ -2,7 +2,7 @@
 
 pkgname=nginx-naxsi
 _naxsirelease=0.56
-pkgver=1.15.7
+pkgver=1.17.7
 pkgrel=1
 pkgdesc='Lightweight HTTP server, mainline release, naxsi embedded and lot of unused flags disabled'
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
@@ -27,12 +27,12 @@ source=($url/download/nginx-$pkgver.tar.gz{,.asc}
         service
         logrotate)
 validpgpkeys=('B0F4253373F8F6F510D42178520A9993A1C052F8') # Maxim Dounin <mdounin@mdounin.ru>
-md5sums=('719b2e3d416f111fecc9db6625553658'
+md5sums=('69d3f19f92cd6c85daacc8f18d0f75d6'
          'SKIP'
          '01a28913b57dfce2ab8435b56d292f82'
          'ce9a06bcaf66ec4a3c4eb59b636e0dfd'
          '3441ce77cdd1aab6f0ab7e212698a8a7')
-sha512sums=('93c5ae89bfabd4c984835517ec6ae739b660c7c28da253378ab602d518dffbd22ce73202fdba0e48fd4d231f7e44d040ff2808b80ada3a6a71936482d20cca18'
+sha512sums=('e7132b90ac92e91def9b927c3b8c3a603d1bcb4a89ff422b284fb6e6cac52a74b33d9c7bbfc2f78467914d8ccd1cf2db9c486559abb739600605439521ff4f6b'
             'SKIP'
             '4660751849bce303af6010b7257532404710106a94817e78d4bc4b566f8019620f24f30207f1d4366b88132a5124e34b164dc67ed80b6710f4bad66115564cbd'
             '7dffe1067ea52ed69bc6dd95c4286af3b6dd13821df64d4a209b39bc5b4b46bc40566d4783695a3527ec640436e2b5e84edd41d547c3bc3ac2ef5e043bd88d66'
