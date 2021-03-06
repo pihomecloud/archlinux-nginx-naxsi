@@ -1,8 +1,8 @@
 # Based on community/nginx-mainline
 
 pkgname=nginx-naxsi
-_naxsirelease=0.56
-pkgver=1.17.7
+_naxsirelease=1.3
+pkgver=1.19.7
 pkgrel=1
 pkgdesc='Lightweight HTTP server, mainline release, naxsi embedded and lot of unused flags disabled'
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
@@ -27,14 +27,14 @@ source=($url/download/nginx-$pkgver.tar.gz{,.asc}
         service
         logrotate)
 validpgpkeys=('B0F4253373F8F6F510D42178520A9993A1C052F8') # Maxim Dounin <mdounin@mdounin.ru>
-md5sums=('69d3f19f92cd6c85daacc8f18d0f75d6'
+md5sums=('09cd77222d59d9bd8168b788a80f5ef2'
          'SKIP'
-         '01a28913b57dfce2ab8435b56d292f82'
+         'cf4000d79d0259852fbadddc1f32518f'
          'ce9a06bcaf66ec4a3c4eb59b636e0dfd'
          '3441ce77cdd1aab6f0ab7e212698a8a7')
-sha512sums=('e7132b90ac92e91def9b927c3b8c3a603d1bcb4a89ff422b284fb6e6cac52a74b33d9c7bbfc2f78467914d8ccd1cf2db9c486559abb739600605439521ff4f6b'
+sha512sums=('660f03533581f350bbfe9a519fd0ee59c543c78be98aa5287df20a89653545b29fc98282548eab1741fb1d5c26da140166b6712ee06e498ba518019588f9b747'
             'SKIP'
-            '4660751849bce303af6010b7257532404710106a94817e78d4bc4b566f8019620f24f30207f1d4366b88132a5124e34b164dc67ed80b6710f4bad66115564cbd'
+            'd7aac69b5eceeb1b0db4741201159ade1e0e7f6f7c3e8c4afa2f8959c6c00c3b5285d5185747c2fb0b1400efda02e96799836315e7e492bb4a059b14acb2142d'
             '7dffe1067ea52ed69bc6dd95c4286af3b6dd13821df64d4a209b39bc5b4b46bc40566d4783695a3527ec640436e2b5e84edd41d547c3bc3ac2ef5e043bd88d66'
             '57298ccaac36e2fd96cbdffeef990dcb70b80f85634e6498b878c8caeb764568a23619797a6c1548f8296e2fb0fd59c9b2f752a7844cfa200e4534fd9fbcf735')
 
@@ -69,7 +69,7 @@ build() {
     --prefix=/etc/nginx \
     --conf-path=/etc/nginx/nginx.conf \
     --sbin-path=/usr/bin/nginx \
-    --add-module=../naxsi-${_naxsirelease}/naxsi_src/ \
+    --add-dynamic-module=../naxsi-${_naxsirelease}/naxsi_src/ \
     --pid-path=/run/nginx.pid \
     --lock-path=/run/lock/nginx.lock \
     --user=http \

@@ -3,14 +3,16 @@
 # Contributor: Sébastien Luttringer
 # Contributor: Drew DeVault
 
-pkgname=nginx-mainline
-pkgver=1.17.7
+_pkgbase=nginx
+pkgbase=nginx-mainline
+pkgname=(nginx-mainline nginx-mainline-src)
+pkgver=1.19.7
 pkgrel=1
 pkgdesc='Lightweight HTTP server and IMAP/POP3 proxy server, mainline release'
 arch=('x86_64')
 url='https://nginx.org'
 license=('custom')
-depends=('pcre' 'zlib' 'openssl' 'geoip' 'mailcap')
+depends=('pcre' 'zlib' 'openssl' 'geoip' 'mailcap' 'libxcrypt')
 backup=('etc/nginx/fastcgi.conf'
         'etc/nginx/fastcgi_params'
         'etc/nginx/koi-win'
@@ -21,17 +23,15 @@ backup=('etc/nginx/fastcgi.conf'
         'etc/nginx/win-utf'
         'etc/logrotate.d/nginx')
 install=nginx.install
-provides=('nginx')
-conflicts=('nginx')
 source=($url/download/nginx-$pkgver.tar.gz{,.asc}
         service
         logrotate)
 validpgpkeys=('B0F4253373F8F6F510D42178520A9993A1C052F8') # Maxim Dounin <mdounin@mdounin.ru>
-md5sums=('69d3f19f92cd6c85daacc8f18d0f75d6'
+md5sums=('09cd77222d59d9bd8168b788a80f5ef2'
          'SKIP'
          'ef491e760e7c1ffec9ca25441a150c83'
          '6a01fb17af86f03707c8ae60f98a2dc2')
-sha512sums=('e7132b90ac92e91def9b927c3b8c3a603d1bcb4a89ff422b284fb6e6cac52a74b33d9c7bbfc2f78467914d8ccd1cf2db9c486559abb739600605439521ff4f6b'
+sha512sums=('660f03533581f350bbfe9a519fd0ee59c543c78be98aa5287df20a89653545b29fc98282548eab1741fb1d5c26da140166b6712ee06e498ba518019588f9b747'
             'SKIP'
             '4f90db6b8b5c13762b96ddff9ca4e846762d46b90be27c7c9d54cec6f7f12fc95585f8455919296edb0255405dd80af8ee86780b805631b72eb74ee59f359715'
             '9232342c0914575ce438c5a8ee7e1c25b0befb457a2934e9cb77d1fe9a103634ea403b57bc0ef0cd6cf72248aee5e5584282cea611bc79198aeac9a65d8df5d7')
@@ -70,8 +70,12 @@ _common_flags=(
 _mainline_flags=(
 )
 
+prepare() {
+  cp -r $_pkgbase-$pkgver{,-src}
+}
+
 build() {
-  cd $provides-$pkgver
+  cd $_pkgbase-$pkgver
   ./configure \
     --prefix=/etc/nginx \
     --conf-path=/etc/nginx/nginx.conf \
@@ -95,8 +99,11 @@ build() {
   make
 }
 
-package() {
-  cd $provides-$pkgver
+package_nginx-mainline() {
+  provides=($_pkgbase)
+  conflicts=($_pkgbase)
+
+  cd $_pkgbase-$pkgver
   make DESTDIR="$pkgdir" install
 
   sed -e 's|\<user\s\+\w\+;|user html;|g' \
@@ -118,7 +125,7 @@ package() {
 
   install -Dm644 ../logrotate "$pkgdir"/etc/logrotate.d/nginx
   install -Dm644 ../service "$pkgdir"/usr/lib/systemd/system/nginx.service
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$provides/LICENSE
+  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$_pkgbase/LICENSE
 
   rmdir "$pkgdir"/run
 
@@ -129,4 +136,11 @@ package() {
     install -Dm644 contrib/vim/$i/nginx.vim \
       "$pkgdir/usr/share/vim/vimfiles/$i/nginx.vim"
   done
+}
+
+package_nginx-mainline-src() {
+  pkgdesc="Source code of nginx-mainline $pkgver, useful for building modules"
+  depends=()
+  install -d "$pkgdir/usr/src"
+  cp -r $_pkgbase-$pkgver-src "$pkgdir/usr/src/nginx"
 }
