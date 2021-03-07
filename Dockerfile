@@ -1,6 +1,6 @@
 from archlinux:latest AS build
 
-RUN pacman -Syu --noconfirm base-devel git sudo gnupg
+RUN pacman-db-upgrade && pacman -Syu --noconfirm base-devel git sudo gnupg
 
 RUN useradd -m -u 1000 builduser
 
