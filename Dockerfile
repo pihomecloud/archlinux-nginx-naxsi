@@ -1,6 +1,6 @@
 from archlinux:latest AS build
 
-RUN pacman-db-upgrade && pacman -Syu --noconfirm base-devel git sudo gnupg
+RUN pacman -Syu --noconfirm base-devel git sudo gnupg
 
 RUN useradd -m -u 1000 builduser
 
@@ -19,7 +19,7 @@ COPY nginx.conf helpers/default_headers.conf helpers/default_ssl.conf helpers/de
 COPY start_nginx.sh /start_nginx.sh
 
 
-RUN pacman -Sy --noconfirm pcre zlib openssl \
+RUN pacman -Syu --noconfirm pcre zlib openssl \
     && pacman --noconfirm -U /tmp/nginx-naxsi.pkg.tar.zst \
     && rm /tmp/nginx-naxsi.pkg.tar.zst \
     && ln -sf /dev/stdout /var/log/nginx/access.log \
