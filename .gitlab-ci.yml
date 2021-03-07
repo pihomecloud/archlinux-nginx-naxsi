@@ -1,18 +1,15 @@
 ---
 build:
-  image: docker:19.03.12
-  variables:
-    # Use TLS https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#tls-enabled
-    DOCKER_HOST: tcp://docker:2376
-    DOCKER_TLS_CERTDIR: "/certs"
-    DOCKER_DRIVER: overlay2
+  image: quay.io/buildah/stable
   stage: build
-  services:
-    - docker:19.03.12-dind
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+    #https://github.com/containers/buildah/blob/master/docs/tutorials/03-on-build.md
+    BUILDAH_FORMAT: docker
   script:
-    - docker info
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build --no-cache -t $IMAGE_TAG .
-    - docker push $IMAGE_TAG
+    - export REGISTRY_AUTH_FILE=${HOME}/auth.json
+    - echo "$CI_REGISTRY_PASSWORD" | buildah login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+    - buildah bud -f Dockerfile -t $IMAGE_TAG .
+    - CONTAINER_ID=$(buildah from ${IMAGE_TAG})
+    - buildah commit --squash $CONTAINER_ID $IMAGE_TAG
+    - buildah push $IMAGE_TAG

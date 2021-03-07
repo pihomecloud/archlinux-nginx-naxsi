@@ -1,4 +1,4 @@
-from archlinux:latest AS build
+from docker.io/library/archlinux:latest AS build
 
 RUN pacman -Syu --noconfirm base-devel git sudo gnupg
 
@@ -12,7 +12,7 @@ RUN chown -R builduser /ng_build \
 RUN chown root: /ng_build/nginx-naxsi.pkg.tar.zst \
     && chmod 666 /ng_build/nginx-naxsi.pkg.tar.zst
 
-from archlinux:latest
+FROM docker.io/library/archlinux:latest
 
 COPY --from=build /ng_build/nginx-naxsi.pkg.tar.zst /tmp/
 COPY nginx.conf helpers/default_headers.conf helpers/default_ssl.conf helpers/default_template.conf /etc/nginx/
