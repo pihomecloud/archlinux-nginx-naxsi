@@ -110,6 +110,7 @@ package() {
   install -Dm644 ../logrotate "$pkgdir"/etc/logrotate.d/nginx
   install -Dm644 ../service "$pkgdir"/usr/lib/systemd/system/nginx.service
   install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$provides/LICENSE
+  install -Dm444 ../naxsi-${_naxsirelease}/naxsi_config/naxsi_core.rules "$pkgdir"/etc/nginx/naxsi_core.rules
 
   rmdir "$pkgdir"/run
 
